@@ -3,12 +3,11 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26"
+    compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 22
+        targetSdkVersion 2276
         versionCode 7
         versionName "2.6.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -35,63 +34,16 @@ signing {
     sign configurations.archives
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-        if (project.properties.containsKey('ossrhUsername') && project.properties.containsKey('ossrhPassword')) {
-            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-        }
-
-        pom.project {
-            name 'Omise Android SDK'
-            description 'Android SDK for Omise API'
-            packaging 'aar'
-            groupId 'co.omise'
-            artifactId 'omise-android'
-            version '2.6.4'
-            url 'https://www.omise.co'
-
-            scm {
-                connection 'scm:git:git://git.github.com/omise/omise-android'
-                developerConnection 'scm:git:git://git.github.com/omise/omise-android'
-                url 'https://github.com/omise/omise-android'
-            }
-
-            licenses {
-                license {
-                    name 'The MIT License (MIT)'
-                    url 'https://opensource.org/licenses/MIT'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'chakrit'
-                    name 'Chakrit Wichian'
-                    email 'chakrit@omise.co'
-                }
-            }
-        }
-    }
-}
-
 dependencies {
-    compile 'joda-time:joda-time:2.9.2'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    androidTestCompile 'com.android.support:support-annotations:26.1.0'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+    implementation 'joda-time:joda-time:2.9.9'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
-    androidTestCompile 'com.google.guava:guava:19.0'
-    provided 'io.card:android-sdk:5.4.0'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.json:json:20171018'
+    androidTestImplementation 'com.google.guava:guava:24.1-android'
+    compileOnly 'io.card:android-sdk:5.5.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.json:json:20171018'
 }

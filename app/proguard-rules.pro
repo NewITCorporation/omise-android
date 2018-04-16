@@ -22,3 +22,7 @@
 -dontwarn org.joda.time.**
 -dontwarn javax.annotation.**
 -dontwarn com.squareup.**
+
+-dontwarn okhttp3.**
+-dontwarn org.conscrypt.**
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
