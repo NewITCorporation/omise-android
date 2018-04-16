@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         minSdkVersion 22
-        targetSdkVersion 2276
+        targetSdkVersion 27
         versionCode 7
         versionName "2.6.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -15,7 +15,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -28,10 +28,6 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-}
-
-signing {
-    sign configurations.archives
 }
 
 dependencies {
